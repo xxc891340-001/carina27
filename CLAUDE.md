@@ -1,5 +1,7 @@
 # gstack
 
+**First-time setup:** run `./setup.sh` from the repo root to install gstack locally.
+
 Use the `/browse` skill from gstack for all web browsing. Never use `mcp__claude-in-chrome__*` tools.
 
 ## Available gstack skills
