@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resident Landlord Toolkit | 自住房东工具包</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen">
+
+  <!-- HEADER -->
+  <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
+    <div class="max-w-3xl mx-auto px-5 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <span class="text-2xl">🏠</span>
+        <div>
+          <div class="font-semibold text-teal-800 leading-tight">Resident Landlord Toolkit</div>
+          <div class="text-xs text-slate-400 leading-tight">自住房东工具包</div>
+        </div>
+      </div>
+      <button onclick="toggleLang()" class="text-sm border border-teal-200 text-teal-700 rounded-full px-3 py-1 hover:bg-teal-50 transition-colors">
+        <span class="lang-en">中文</span>
+        <span class="lang-zh hidden">EN</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="bg-gradient-to-br from-teal-800 to-teal-600 text-white">
+    <div class="max-w-3xl mx-auto px-5 py-14">
+      <div class="text-teal-200 text-xs font-semibold uppercase tracking-wider mb-3">
+        <span class="lang-en">For Resident Landlords · Lodger Model</span>
+        <span class="lang-zh hidden">自住房东专用 · Lodger 模式</span>
+      </div>
+      <h1 class="text-3xl sm:text-4xl font-bold mb-4">
+        <span class="lang-en">Taking in a Lodger?</span>
+        <span class="lang-zh hidden">准备把房间租出去？</span>
+      </h1>
+      <p class="text-teal-100 text-lg mb-6">
+        <span class="lang-en">Protect your home, your deposit & your safety — with simple, private tools.</span>
+        <span class="lang-zh hidden">用简单工具保护你的房子、押金和人身安全。</span>
+      </p>
+      <p class="text-teal-300 text-sm max-w-xl leading-relaxed">
+        <span class="lang-en">No login. No subscription. No cloud storage. Open a tool, fill in the details, download your PDF, and keep it private.</span>
+        <span class="lang-zh hidden">无需登录，无需订阅，无云端存储。打开工具，填写信息，下载PDF，自行保管。</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- NOTICE BANNER -->
+  <div class="bg-amber-50 border-b border-amber-200">
+    <div class="max-w-3xl mx-auto px-5 py-3 flex gap-2 text-sm">
+      <span class="text-amber-500 flex-shrink-0">⚠️</span>
+      <span class="text-amber-900">
+        <span class="lang-en"><strong>Resident landlord note:</strong> As a lodger landlord you are <em>not</em> legally required to protect deposits in a government scheme (TDS). But in any dispute, evidence is everything. These tools help you build that evidence from day one.</span>
+        <span class="lang-zh hidden"><strong>自住房东提示：</strong>Lodger 的押金在法律上<em>无需</em>存入政府保护计划（TDS）。但一旦发生纠纷，证据决定一切。这些工具帮你从第一天就建立完整的证据链。</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- STEPS -->
+  <main class="max-w-3xl mx-auto px-5 py-10 space-y-5">
+
+    <!-- ─── STEP 1 ─── -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="h-1.5 bg-teal-500 rounded-t-xl"></div>
+      <div class="p-6">
+        <div class="flex gap-4">
+          <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">1</div>
+          <div class="flex-1 min-w-0">
+            <h2 class="text-lg font-semibold text-slate-800 mb-1">
+              <span class="lang-en">Rental Preparation</span>
+              <span class="lang-zh hidden">出租准备</span>
+            </h2>
+            <p class="text-slate-500 text-sm mb-4">
+              <span class="lang-en">Get the basics right to avoid big headaches later</span>
+              <span class="lang-zh hidden">把规则说清楚，减少后期大麻烦</span>
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 mb-5">
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Understand your rights as a resident landlord (lodger / excluded occupier rules)</span>
+                <span class="lang-zh hidden">了解自住房东的权利（lodger / excluded occupier 规则）</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Set clear deposit amount and deduction rules upfront</span>
+                <span class="lang-zh hidden">提前定好押金金额和扣款规则</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Prepare simple house rules for shared spaces (no formal tenancy contract required)</span>
+                <span class="lang-zh hidden">准备简单的公共区域使用规则（不需要正式租赁合同）</span>
+              </li>
+            </ul>
+            <div class="bg-slate-50 rounded-lg p-3 text-sm">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <span class="lang-en">Free Resources</span>
+                <span class="lang-zh hidden">免费资源</span>
+              </div>
+              <div class="space-y-1.5 text-slate-400">
+                <div class="flex gap-2">📄
+                  <span class="lang-en">Resident Landlord Setup Checklist &amp; House Rules Template — <em>coming soon</em></span>
+                  <span class="lang-zh hidden">自住房东出租前准备清单 &amp; 房屋规则模板 — <em>即将推出</em></span>
+                </div>
+                <div class="flex gap-2">📄
+                  <span class="lang-en">Deposit Protection Tips for Resident Landlords — <em>coming soon</em></span>
+                  <span class="lang-zh hidden">自住房东押金保护小贴士 — <em>即将推出</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── STEP 2 ─── -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="h-1.5 bg-teal-500 rounded-t-xl"></div>
+      <div class="p-6">
+        <div class="flex gap-4">
+          <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">2</div>
+          <div class="flex-1 min-w-0">
+            <h2 class="text-lg font-semibold text-slate-800 mb-1">
+              <span class="lang-en">Tenant Screening &amp; Pre-Move-In Education</span>
+              <span class="lang-zh hidden">租客筛选与入住前教育</span>
+            </h2>
+            <p class="text-slate-500 text-sm mb-4">
+              <span class="lang-en">Prevent problems by setting expectations early</span>
+              <span class="lang-zh hidden">提前说清楚，预防90%的纠纷</span>
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 mb-5">
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Ask the right questions about lifestyle, working hours, and habits during screening</span>
+                <span class="lang-zh hidden">筛选时问清楚生活习惯、作息时间</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Share clear guidelines on looking after the property before move-in</span>
+                <span class="lang-zh hidden">入住前发给租客爱护房屋的规则说明</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Let the lodger know the process will be fair and documented — this alone deters many problems</span>
+                <span class="lang-zh hidden">告知租客整个流程是透明记录的——这本身就有双向震慑作用</span>
+              </li>
+            </ul>
+            <div class="bg-slate-50 rounded-lg p-3 text-sm">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <span class="lang-en">Free Resources</span>
+                <span class="lang-zh hidden">免费资源</span>
+              </div>
+              <div class="space-y-1.5 text-slate-400">
+                <div class="flex gap-2">📄
+                  <span class="lang-en">Lodger Information Pack (PDF) — <em>coming soon</em></span>
+                  <span class="lang-zh hidden">租客须知包（PDF）— <em>即将推出</em></span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── STEP 3 — HIGHLIGHTED ─── -->
+    <div class="bg-white rounded-xl shadow-sm border-2 border-teal-500 overflow-hidden">
+      <div class="h-2 bg-teal-500"></div>
+      <div class="p-6">
+        <div class="flex gap-4">
+          <div class="w-8 h-8 rounded-full bg-teal-600 text-white flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">3</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap mb-1">
+              <h2 class="text-lg font-semibold text-slate-800">
+                <span class="lang-en">Move-In Property Condition Record</span>
+                <span class="lang-zh hidden">入住房屋状态记录</span>
+              </h2>
+              <span class="bg-teal-100 text-teal-700 text-xs px-2 py-0.5 rounded-full font-semibold whitespace-nowrap">
+                <span class="lang-en">★ Most Important Step</span>
+                <span class="lang-zh hidden">★ 最关键步骤</span>
+              </span>
+            </div>
+            <p class="text-slate-500 text-sm mb-4">
+              <span class="lang-en">Create strong evidence from day one — your best protection against deposit disputes</span>
+              <span class="lang-zh hidden">第一天就把证据做足——押金纠纷时你最强的保护</span>
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 mb-5">
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Document every room and shared area with photos and detailed descriptions</span>
+                <span class="lang-zh hidden">逐房间拍照 + 详细文字描述</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Walk through the record together with your lodger on move-in day</span>
+                <span class="lang-zh hidden">入住当天和租客一起走一遍并确认</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Both parties confirm — each keeps a copy of the PDF report</span>
+                <span class="lang-zh hidden">双方确认，各保留一份PDF报告</span>
+              </li>
+            </ul>
+            <div class="space-y-2">
+              <a href="move-in.html" class="flex items-center justify-between bg-teal-600 hover:bg-teal-700 text-white rounded-lg px-4 py-3 text-sm font-semibold transition-colors">
+                <span>
+                  <span class="lang-en">📋 Start Move-In Condition Record</span>
+                  <span class="lang-zh hidden">📋 开始填写入住状态记录</span>
+                </span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── STEP 4 ─── -->
+    <div class="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+      <div class="h-1.5 bg-teal-500 rounded-t-xl"></div>
+      <div class="p-6">
+        <div class="flex gap-4">
+          <div class="w-8 h-8 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">4</div>
+          <div class="flex-1 min-w-0">
+            <h2 class="text-lg font-semibold text-slate-800 mb-1">
+              <span class="lang-en">During the Tenancy</span>
+              <span class="lang-zh hidden">居住期间简单维护</span>
+            </h2>
+            <p class="text-slate-500 text-sm mb-4">
+              <span class="lang-en">Handle small issues before they grow</span>
+              <span class="lang-zh hidden">小问题早处理，避免积累</span>
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 mb-5">
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Keep written records of any repairs or concerns (WhatsApp / email preferred)</span>
+                <span class="lang-zh hidden">维修或问题用书面沟通（微信/邮件优先）</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Gently remind about shared space rules when needed</span>
+                <span class="lang-zh hidden">适时提醒公共区域规则</span>
+              </li>
+            </ul>
+            <div class="bg-slate-50 rounded-lg p-3 text-sm text-slate-400">
+              <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+                <span class="lang-en">Free Resources</span>
+                <span class="lang-zh hidden">免费资源</span>
+              </div>
+              <div class="flex gap-2">📄
+                <span class="lang-en">During Tenancy Guide (PDF) — <em>coming soon</em></span>
+                <span class="lang-zh hidden">居住期间常见问题处理指南（PDF）— <em>即将推出</em></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── STEP 5 — SAFETY ─── -->
+    <div class="bg-white rounded-xl shadow-sm border border-orange-300 overflow-hidden">
+      <div class="h-1.5 bg-orange-400 rounded-t-xl"></div>
+      <div class="p-6">
+        <div class="flex gap-4">
+          <div class="w-8 h-8 rounded-full bg-orange-100 text-orange-700 flex items-center justify-center font-bold text-sm flex-shrink-0 mt-0.5">5</div>
+          <div class="flex-1 min-w-0">
+            <div class="flex items-center gap-2 flex-wrap mb-1">
+              <h2 class="text-lg font-semibold text-slate-800">
+                <span class="lang-en">Move-Out &amp; Deposit Settlement</span>
+                <span class="lang-zh hidden">退租与押金处理</span>
+              </h2>
+              <span class="bg-orange-100 text-orange-700 text-xs px-2 py-0.5 rounded-full font-semibold whitespace-nowrap">
+                <span class="lang-en">⚠ Safety matters here</span>
+                <span class="lang-zh hidden">⚠ 安全第一</span>
+              </span>
+            </div>
+            <p class="text-slate-500 text-sm mb-4">
+              <span class="lang-en">End safely and fairly — especially important if things get tense</span>
+              <span class="lang-zh hidden">安全、公平地结束出租——如有压力务必注意安全</span>
+            </p>
+            <ul class="space-y-2 text-sm text-slate-600 mb-5">
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Compare move-out condition with the original move-in record</span>
+                <span class="lang-zh hidden">对比入住记录，逐房间检查状态</span>
+              </li>
+              <li class="flex gap-2"><span class="text-teal-500 flex-shrink-0 mt-0.5">✓</span>
+                <span class="lang-en">Generate a clear difference report to support deposit deduction decisions</span>
+                <span class="lang-zh hidden">生成差异报告，支持押金扣款决定</span>
+              </li>
+              <li class="flex gap-2"><span class="text-orange-500 flex-shrink-0 mt-0.5">⚡</span>
+                <span class="lang-en">If you feel threatened: know when to call 999, how to record safely, and what to say</span>
+                <span class="lang-zh hidden">如遭威胁：何时拨打999、如何录音、以及可以直接说的安全话术</span>
+              </li>
+            </ul>
+            <div class="space-y-2">
+              <a href="move-out.html" class="flex items-center justify-between bg-orange-500 hover:bg-orange-600 text-white rounded-lg px-4 py-3 text-sm font-semibold transition-colors">
+                <span>
+                  <span class="lang-en">🔑 Start Move-Out Comparison</span>
+                  <span class="lang-zh hidden">🔑 开始退租对比</span>
+                </span>
+                <span>→</span>
+              </a>
+              <a href="safety.html" class="flex items-center justify-between bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 rounded-lg px-4 py-3 text-sm font-semibold transition-colors">
+                <span>
+                  <span class="lang-en">🛡️ Move-Out Safety Guide — what to do if things get aggressive</span>
+                  <span class="lang-zh hidden">🛡️ 退租安全指南——遇到威胁怎么办</span>
+                </span>
+                <span>→</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="bg-teal-800 rounded-xl text-white p-6 text-center">
+      <p class="text-teal-200 text-sm mb-4">
+        <span class="lang-en">Ready to get started? Most landlords begin here:</span>
+        <span class="lang-zh hidden">准备好了吗？大多数房东从这里开始：</span>
+      </p>
+      <a href="move-in.html" class="inline-flex items-center gap-2 bg-white text-teal-800 font-semibold px-6 py-3 rounded-lg hover:bg-teal-50 transition-colors text-sm">
+        <span class="lang-en">📋 Create Move-In Record</span>
+        <span class="lang-zh hidden">📋 创建入住记录</span>
+        <span>→</span>
+      </a>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 py-8 px-5 mt-4">
+    <div class="max-w-3xl mx-auto text-center text-xs text-slate-400 space-y-1">
+      <p>
+        <span class="lang-en">All tools run entirely in your browser. No data is ever sent to any server.</span>
+        <span class="lang-zh hidden">所有工具完全在浏览器中运行，任何数据不会发送到服务器。</span>
+      </p>
+      <p>
+        <span class="lang-en">Resident Landlord Toolkit · For informational purposes only · Not legal advice</span>
+        <span class="lang-zh hidden">自住房东工具包 · 仅供参考 · 非法律建议</span>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let lang = localStorage.getItem('rlt-lang') || 'en';
+    function toggleLang() {
+      lang = lang === 'en' ? 'zh' : 'en';
+      localStorage.setItem('rlt-lang', lang);
+      applyLang();
+    }
+    function applyLang() {
+      document.querySelectorAll('.lang-en').forEach(el => el.classList.toggle('hidden', lang !== 'en'));
+      document.querySelectorAll('.lang-zh').forEach(el => el.classList.toggle('hidden', lang !== 'zh'));
+    }
+    applyLang();
+  </script>
+</body>
+</html>
