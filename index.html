@@ -111,18 +111,6 @@
       box-shadow: 0 4px 20px rgba(255,203,55,0.22) !important;
     }
 
-    /* ── Mobile viewport height optimisation ──
-       Tighten vertical gaps on small iPhones (SE, mini) so the CTA
-       becomes visible without scrolling. Desktop layout unchanged. */
-    @media (max-height: 740px) {
-      .vgap-hero   { padding-top:  12px !important; }
-      .vgap-badge  { margin-bottom: 10px !important; }
-      .vgap-sub    { margin-top:   12px !important; }
-      .vgap-props  { margin-top:   14px !important; }
-      .vgap-trust  { margin-top:   12px !important; }
-      .vgap-cta    { padding-top:  10px !important; }
-      .vgap-props .space-y-3 > * + * { margin-top: 8px !important; }
-    }
   </style>
 </head>
 <body>
@@ -202,7 +190,7 @@ function HomePage({ lang, onToggleLang, onStart }) {
   const t = copy[lang];
 
   return (
-    <div className="min-h-screen bg-warm flex flex-col max-w-[430px] mx-auto">
+    <div className="min-h-screen bg-warm max-w-[430px] mx-auto">
 
       {/* ── Top bar ── */}
       <div className="px-5 pt-safe flex items-center justify-between">
@@ -221,12 +209,12 @@ function HomePage({ lang, onToggleLang, onStart }) {
         </button>
       </div>
 
-      {/* ── Hero ── */}
-      <div className="flex-1 px-5 pt-6 vgap-hero screen-in stagger">
+      {/* ── Hero — block flow, height driven by content ── */}
+      <div className="px-5 pt-6 screen-in stagger">
 
         {/* Badge */}
         <div
-          className="vgap-badge inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-5"
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 mb-5"
           style={{background:'rgba(255,203,55,0.15)',border:'1px solid rgba(255,203,55,0.45)'}}
         >
           <span style={{fontSize:'12px',fontWeight:500,color:'#1F2937'}}>{t.badge}</span>
@@ -245,7 +233,7 @@ function HomePage({ lang, onToggleLang, onStart }) {
         </div>
 
         {/* Subheadline */}
-        <div className="mt-5 vgap-sub screen-in">
+        <div className="mt-5 screen-in">
           <p style={{fontSize:'14px',color:'#6B7280',lineHeight:1.6,margin:0}}>
             {t.sub}
           </p>
@@ -257,7 +245,7 @@ function HomePage({ lang, onToggleLang, onStart }) {
         </div>
 
         {/* Value props */}
-        <div className="mt-7 vgap-props space-y-3 screen-in">
+        <div className="mt-6 space-y-3 screen-in">
           {[
             { icon:'📸', zh: t.v1zh, en: t.v1en },
             { icon:'📄', zh: t.v2zh, en: t.v2en },
@@ -282,7 +270,7 @@ function HomePage({ lang, onToggleLang, onStart }) {
 
         {/* Privacy trust card */}
         <div
-          className="mt-6 vgap-trust mb-2 rounded-2xl p-4 screen-in"
+          className="mt-5 rounded-2xl p-4 screen-in"
           style={{background:'#fff',border:'1px solid #E5E7EB',boxShadow:'0 2px 8px rgba(0,0,0,0.04)'}}
         >
           <p style={{fontSize:'13px',color:'#6B7280',lineHeight:1.65,margin:0}}>
@@ -296,8 +284,8 @@ function HomePage({ lang, onToggleLang, onStart }) {
         </div>
       </div>
 
-      {/* ── CTA ── */}
-      <div className="px-5 pt-5 pb-safe vgap-cta screen-in">
+      {/* ── CTA — follows content, no viewport anchoring ── */}
+      <div className="px-5 pt-5 pb-safe screen-in">
         <button
           onClick={onStart}
           className="btn-primary w-full bg-brand text-black font-bold rounded-xl py-4"
