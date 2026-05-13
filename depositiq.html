@@ -137,7 +137,7 @@ const copy = {
     v3en:        'Photos deleted after report is sent',
     trustZh:     '"我们不会永久保存你的房间照片。报告生成后，照片将在 7 天内自动删除。"',
     trustEn:     'We do not permanently store your room photos.',
-    cta:         '开始记录',
+    cta:         '快速记录一下',
     ctaSub:      '£5.99 · 一次性付款 · 生成英文PDF报告',
     scenarioQ:   '今天需要记录什么？',
     scenarioQen: 'What are you recording today?',
@@ -166,7 +166,7 @@ const copy = {
     v3en:        '照片处理后自动删除',
     trustZh:     '"We do not permanently store your room photos. They are deleted within 7 days of your report being generated."',
     trustEn:     '我们不会永久保存你的房间照片。',
-    cta:         'Start Recording',
+    cta:         'Record Issues',
     ctaSub:      '£5.99 · one-time · English PDF report',
     scenarioQ:   'What are you recording today?',
     scenarioQen: '今天需要记录什么？',
@@ -209,7 +209,7 @@ function HomePage({ lang, onToggleLang, onStart }) {
       </div>
 
       {/* ── Hero ── */}
-      <div className="flex-1 px-5 pt-6 screen-in stagger">
+      <div className="flex-1 px-5 pt-6 pb-safe screen-in stagger">
 
         {/* Badge */}
         <div
@@ -224,19 +224,43 @@ function HomePage({ lang, onToggleLang, onStart }) {
           <h1 style={{fontSize:'clamp(28px,8vw,34px)',fontWeight:700,color:'#1F2937',lineHeight:1.18,margin:0}}>
             {t.h1}
           </h1>
-          <p style={{fontSize:'17px',fontWeight:500,color:'#9CA3AF',marginTop:'4px',marginBottom:0}}>
-            {t.h1sub}
+          {lang === 'zh' && (
+            <p style={{fontSize:'17px',fontWeight:500,color:'#9CA3AF',marginTop:'4px',marginBottom:0}}>
+              {t.h1sub}
+            </p>
+          )}
+        </div>
+
+        {/* CTA — visible in first viewport */}
+        <div className="mt-6 screen-in">
+          <button
+            onClick={onStart}
+            className="btn-primary w-full bg-brand text-black font-bold rounded-xl py-4"
+            style={{
+              fontSize:'16px',
+              fontWeight:700,
+              boxShadow:'0 4px 20px rgba(255,203,55,0.35)',
+              border:'none',
+              outline:'none',
+            }}
+          >
+            {t.cta} →
+          </button>
+          <p style={{textAlign:'center',fontSize:'12px',color:'#9CA3AF',marginTop:'10px'}}>
+            {t.ctaSub}
           </p>
         </div>
 
         {/* Subheadline */}
-        <div className="mt-5 screen-in">
+        <div className="mt-6 screen-in">
           <p style={{fontSize:'14px',color:'#6B7280',lineHeight:1.6,margin:0}}>
             {t.sub}
           </p>
-          <p style={{fontSize:'12px',color:'#9CA3AF',marginTop:'4px',margin:0}}>
-            {t.subEn}
-          </p>
+          {lang === 'zh' && (
+            <p style={{fontSize:'12px',color:'#9CA3AF',marginTop:'4px',margin:0}}>
+              {t.subEn}
+            </p>
+          )}
         </div>
 
         {/* Value props */}
@@ -255,7 +279,9 @@ function HomePage({ lang, onToggleLang, onStart }) {
               </div>
               <div>
                 <p style={{fontSize:'13px',fontWeight:600,color:'#1F2937',margin:0}}>{v.zh}</p>
-                <p style={{fontSize:'11px',color:'#9CA3AF',marginTop:'1px',margin:0}}>{v.en}</p>
+                {lang === 'zh' && (
+                  <p style={{fontSize:'11px',color:'#9CA3AF',marginTop:'1px',margin:0}}>{v.en}</p>
+                )}
               </div>
             </div>
           ))}
@@ -263,36 +289,18 @@ function HomePage({ lang, onToggleLang, onStart }) {
 
         {/* Privacy trust card */}
         <div
-          className="mt-6 rounded-2xl p-4 screen-in"
+          className="mt-6 mb-2 rounded-2xl p-4 screen-in"
           style={{background:'#fff',border:'1px solid #E5E7EB',boxShadow:'0 2px 8px rgba(0,0,0,0.04)'}}
         >
           <p style={{fontSize:'13px',color:'#6B7280',lineHeight:1.65,margin:0}}>
             {t.trustZh}
           </p>
-          <p style={{fontSize:'11px',color:'#9CA3AF',marginTop:'6px',margin:0}}>
-            {t.trustEn}
-          </p>
+          {lang === 'zh' && (
+            <p style={{fontSize:'11px',color:'#9CA3AF',marginTop:'6px',margin:0}}>
+              {t.trustEn}
+            </p>
+          )}
         </div>
-      </div>
-
-      {/* ── CTA ── */}
-      <div className="px-5 pt-5 pb-safe screen-in">
-        <button
-          onClick={onStart}
-          className="btn-primary w-full bg-brand text-black font-bold rounded-xl py-4"
-          style={{
-            fontSize:'16px',
-            fontWeight:700,
-            boxShadow:'0 4px 20px rgba(255,203,55,0.35)',
-            border:'none',
-            outline:'none',
-          }}
-        >
-          {t.cta} →
-        </button>
-        <p style={{textAlign:'center',fontSize:'12px',color:'#9CA3AF',marginTop:'10px'}}>
-          {t.ctaSub}
-        </p>
       </div>
     </div>
   );
@@ -336,9 +344,11 @@ function ScenarioPage({ lang, onToggleLang, onBack, onSelect }) {
         <h2 style={{fontSize:'clamp(22px,6vw,26px)',fontWeight:700,color:'#1F2937',margin:0,lineHeight:1.2}}>
           {t.scenarioQ}
         </h2>
-        <p style={{fontSize:'13px',color:'#9CA3AF',marginTop:'4px',margin:0}}>
-          {t.scenarioQen}
-        </p>
+        {lang === 'zh' && (
+          <p style={{fontSize:'13px',color:'#9CA3AF',marginTop:'4px',margin:0}}>
+            {t.scenarioQen}
+          </p>
+        )}
       </div>
 
       {/* ── Scenario cards — 2×2 grid ── */}
@@ -360,7 +370,9 @@ function ScenarioPage({ lang, onToggleLang, onBack, onSelect }) {
               <span style={{fontSize:'32px',lineHeight:1}}>{s.icon}</span>
               <div>
                 <p style={{fontSize:'15px',fontWeight:700,color:'#1F2937',margin:0,lineHeight:1.2}}>{s.zh}</p>
-                <p style={{fontSize:'11px',fontWeight:500,color:'#9CA3AF',marginTop:'2px',margin:0}}>{s.en}</p>
+                {lang === 'zh' && (
+                  <p style={{fontSize:'11px',fontWeight:500,color:'#9CA3AF',marginTop:'2px',margin:0}}>{s.en}</p>
+                )}
               </div>
               <p style={{fontSize:'12px',color:'#6B7280',lineHeight:1.5,margin:0}}>{s.desc}</p>
             </button>
@@ -370,8 +382,10 @@ function ScenarioPage({ lang, onToggleLang, onBack, onSelect }) {
         {/* Reassurance note */}
         <div className="mt-6 screen-in" style={{animationDelay:'0.3s'}}>
           <p style={{textAlign:'center',fontSize:'12px',color:'#9CA3AF',lineHeight:1.7,margin:0}}>
-            {t.scenarioNote}<br/>
-            <span style={{fontSize:'11px'}}>{t.scenarioNoteEn}</span>
+            {t.scenarioNote}
+            {lang === 'zh' && (
+              <><br/><span style={{fontSize:'11px'}}>{t.scenarioNoteEn}</span></>
+            )}
           </p>
         </div>
       </div>
