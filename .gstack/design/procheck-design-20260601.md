@@ -328,10 +328,25 @@ Phase 1 decision: Use Planning.data.gov.uk. For postcodes where data is unavaila
 
 No formal deployment pipeline yet — static hosting (Vercel/Netlify) sufficient for Phase 1.
 
-## The Assignment
+## Validation Approach
 
-Before you write a line of code for the workspace: go into a UK student Facebook group (Chinese Students UK, or any major university international student group) and post:
+Build and validate in parallel. Problem existence is established — 2+ years of direct renter work, competitor testing, purchased competitor products, initial prototypes built, specific workflow and UX problems identified. The remaining uncertainty is UX: which information hierarchy, interpretation language, upgrade placement, and presentation format converts best. These questions require a working prototype, not pre-build interviews.
 
-> "I'm building a free tool to help international students check UK properties before paying a deposit. If you've searched for UK accommodation recently, would you spend 5 minutes giving feedback on a prototype? DM me."
+**Week 1–2 (parallel tracks):**
 
-You are looking for 5–10 people who will tell you whether the verdict framing resonates with them — or if Lucy is your assumption rather than your user. The answer changes your first build decision.
+Build track:
+- First workspace prototype implementing the information hierarchy and interpretation rules from this doc
+- Each UX decision is a testable hypothesis: does the verdict headline land? does Trigger A feel helpful or manipulative? does the language read as a knowledgeable friend or a data report?
+
+Validation track (concurrent, not sequential):
+- Share prototype with UK student groups (Chinese Students UK, university international student Facebook groups, WeChat groups)
+- Observe: does Lucy complete the flow? where does she hesitate? does she upgrade or stop?
+- Collect language: what words does she use to describe what she found? "helpful" or "still not sure"?
+
+What you are testing:
+- Information hierarchy: does the verdict headline get read first, or does she scroll past it?
+- Interpretation language: does "slightly above average for inner London" feel informative or vague?
+- Upgrade trigger: does Trigger A ("we found something") feel earned or forced?
+- Presentation format: does the layout communicate importance, or does everything look equally weighted?
+
+You are not testing whether the problem exists. You already know it does.
