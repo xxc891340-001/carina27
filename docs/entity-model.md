@@ -127,7 +127,8 @@ The output record linking an Area to a Destination under a specific snapshot and
 | `rank_in_bucket` | integer | 1–3. Rank within whichever bucket(s) this area qualifies for |
 | `summary` | text | Generated narrative summary |
 | `trade_offs` | text | Generated trade-off analysis |
-| `practical_guidance` | text | Generated actionable advice |
+| `practical_guidance` | text | Generated awareness guidance — things to notice or investigate (the "what to look out for" layer) |
+| `next_actions` | text | Generated action guidance — concrete, time-bound tasks for the renter (the "what to do next" layer) |
 | `generated_at` | timestamp | When the Recommendation was created |
 | `status` | enum | `draft` \| `live` \| `archived` |
 
@@ -169,7 +170,7 @@ The following rules must be enforced in application code, database constraints, 
 
 - **Single live snapshot per area.** At most one `AreaSnapshot` per `area_id` may have `status = live` at any time. Promoting a new snapshot to `live` must atomically archive the previous live snapshot in the same transaction.
 
-- **Recommendation pinning.** The `area_snapshot_id` and `interpretation_rule_id` columns on `Recommendation` are immutable after the row is created. Regenerating a recommendation requires a new `Recommendation` row (with the old row archived), not an update to the existing one.
+- **Recommendation pinning.** The `area_snapshot_id` and `interpretation_rule_id` columns on `Recommendation` are immutable after the row is created. Regenerating a recommendation requires a new `Recommendation` row (with the old row archived), not an update to the existing one. The `practical_guidance` and `next_actions` fields are also immutable after generation — corrections require a new row.
 
 - **Bucket membership.** An area must satisfy at least one of `walk_bucket = true` or `transit_bucket = true` to appear as a Recommendation. `rank_in_bucket` must be between 1 and 3 inclusive. The combination `(destination_id, area_id, walk_bucket, transit_bucket, rank_in_bucket)` should be unique among `live` recommendations to prevent duplicate rankings.
 
