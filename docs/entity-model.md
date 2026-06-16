@@ -4,6 +4,8 @@ This document defines the Phase 1 data model for the HelloTenant Area Compare To
 
 The platform is bilingual (English and Chinese). Localisation happens at generation time: each locale has its own `InterpretationRule` with its own prompt template and audience assumptions. Chinese content is not a translation of English content — it is generated independently to suit readers who may be unfamiliar with UK housing systems.
 
+HelloTenant is a rule-driven interpretation platform, not an editorial CMS. `InterpretationRule` is the primary knowledge asset. Quality improves through rule evolution, which propagates automatically to all AI-generated content. Human editing of individual Recommendations is the exception — the editorial model is kept deliberately lightweight to reflect this.
+
 ---
 
 ## Entities
@@ -133,6 +135,9 @@ The output record linking an Area to a Destination under a specific snapshot, in
 | `trade_offs` | text | Generated trade-off analysis in the Recommendation's locale |
 | `practical_guidance` | text | Generated awareness guidance — things to notice or investigate ("what to look out for"). In `zh` this layer may include explanation of UK-specific concepts before the awareness points. |
 | `next_actions` | text | Generated action guidance — concrete, time-bound tasks for the renter ("what to do next"). In `zh` this layer is localised, not translated: actions are written with the assumption that the reader is new to UK systems. |
+| `edit_origin` | enum | `ai_generated` \| `human_edited`. `ai_generated` rows regenerate automatically on rule or data updates. `human_edited` rows route to a lightweight manual approval step before the new AI content goes live. |
+| `review_status` | enum | `pending` \| `approved` \| `rejected`. Lightweight approval gate. Most AI-generated content is auto-approved by the GenerationJob; human-edited rows require a manual approval. |
+| `regeneration_trigger` | enum | Nullable. `data_refresh` \| `rule_update` \| `manual`. Set on rows created by a regeneration job to record why regeneration occurred. Null on original first-generation rows. |
 | `generated_at` | timestamp | When the Recommendation was created |
 | `status` | enum | `draft` \| `live` \| `archived` |
 
@@ -146,7 +151,7 @@ Tracks a batch content generation run. Each job targets one locale. A full bilin
 |---|---|---|
 | `id` | uuid | Primary key |
 | `locale` | enum | `en` \| `zh`. The locale this job generates content for. |
-| `trigger` | enum | `scheduled` \| `manual` \| `on_demand` \| `regen_rule` \| `regen_snapshot` |
+| `trigger` | enum | `scheduled` \| `manual` \| `on_demand` \| `data_refresh` \| `rule_update` |
 | `interpretation_rule_id` | uuid FK → InterpretationRule | The locale-specific rule active at job creation time |
 | `destination_ids` | uuid[] | Destinations in scope for this run |
 | `status` | enum | `queued` \| `running` \| `completed` \| `failed` |
@@ -197,7 +202,7 @@ The following rules must be enforced in application code, database constraints, 
 
 - **Single live snapshot per area.** At most one `AreaSnapshot` per `area_id` may have `status = live` at any time. Promoting a new snapshot to `live` must atomically archive the previous live snapshot in the same transaction.
 
-- **Recommendation pinning.** The `area_snapshot_id` and `interpretation_rule_id` columns on `Recommendation` are immutable after the row is created. Regenerating a recommendation requires a new `Recommendation` row (with the old row archived), not an update to the existing one. The `practical_guidance` and `next_actions` fields are also immutable after generation — corrections require a new row.
+- **Recommendation pinning.** The `area_snapshot_id` and `interpretation_rule_id` columns on `Recommendation` are immutable after the row is created. Regenerating a recommendation requires a new `Recommendation` row (with the old row archived), not an update to the existing one. All generated content fields (`summary`, `trade_offs`, `practical_guidance`, `next_actions`) are immutable after generation — corrections require a new row.
 
 - **Live recommendation uniqueness per locale.** At most one `Recommendation` per `(area_id, destination_id, locale)` may have `status = live` at any time. `walk_bucket`, `transit_bucket`, and `rank_in_bucket` are locale-agnostic structural values and must be consistent across the `en` and `zh` rows for the same `(area_id, destination_id)` pair.
 
@@ -205,6 +210,8 @@ The following rules must be enforced in application code, database constraints, 
 
 - **Phase 1 profile constraint.** While `RenterProfile` rows may exist, no business logic reads them in Phase 1. All Phase 1 Recommendations must have `renter_profile_id = NULL`. Inserting a Recommendation with a non-null `renter_profile_id` in Phase 1 is an application error.
 
-- **InterpretationRule uniqueness per locale.** Exactly one `InterpretationRule` row per locale has `is_active = true` at any point in time. Activating a new rule for a locale must deactivate the previous rule for that locale in a single transaction. Rules for different locales are activated independently. Existing Recommendations that reference an older rule remain valid and must not be regenerated automatically.
+- **InterpretationRule uniqueness per locale.** Exactly one `InterpretationRule` row per locale has `is_active = true` at any point in time. Activating a new rule for a locale must deactivate the previous rule for that locale in a single transaction. Rules for different locales are activated independently. Existing Recommendations that reference an older rule remain valid and are not regenerated automatically — regeneration is a deliberate operation, not an automatic consequence of rule activation.
+
+- **Regeneration and edit_origin.** When a GenerationJob creates a new draft Recommendation that would replace a live row with `edit_origin = human_edited`, the new draft must be set to `review_status = pending` regardless of the job's auto-approval setting. A human must approve the new AI content before it goes live. Rows with `edit_origin = ai_generated` may be auto-approved by the job.
 
 - **GenerationJob locale consistency.** A `GenerationJob` must reference an `InterpretationRule` with the same `locale` as the job itself. A job with `locale = zh` must not reference an `en` InterpretationRule.
