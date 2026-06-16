@@ -352,6 +352,63 @@ The distinction between the final two steps is intentional:
 
 ---
 
+## Localisation
+
+### Principle: generation, not translation
+
+HelloTenant is bilingual (English and Chinese). Chinese content is not produced by translating English output. It is generated independently from a locale-specific `InterpretationRule` that carries different audience assumptions, a different prompt template, and different explanatory depth.
+
+The underlying data — `AreaSnapshot` fields — is the same for both locales. What differs is how that data is interpreted, explained, and turned into guidance for the reader.
+
+### Audience assumptions by locale
+
+**English (`en`)**
+The reader is assumed to be familiar with basic UK housing and public services. Concepts like GP registration, Council Tax, and deposit protection do not need to be explained — the guidance can move directly to the practical implication.
+
+**Chinese (`zh`)**
+The reader may be renting in the UK for the first time, may be an international student, and may be unfamiliar with UK-specific systems. The `zh` InterpretationRule instructs the AI to explain relevant concepts as part of the generated content — not as a footnote or aside, but woven into the guidance itself.
+
+Concepts that require explanation in `zh` content include:
+
+| Concept | What the zh content should explain |
+|---|---|
+| GP registration | What a GP is, that international students on a visa of 6+ months can use the NHS, what documents are needed, that registration is free and done in person |
+| Council Tax | What it is, that full-time students are usually exempt, how to apply for the exemption, that it is billed to the tenant not the landlord |
+| Deposit protection | That landlords are legally required to protect deposits in a government scheme, how to check this after paying, and what to do if they have not |
+| Referencing | What a reference check involves (credit history, employment, previous landlord), why it is required, and what international students without UK credit history can expect |
+| Guarantors | What a guarantor is, why landlords ask for one, and the common alternative of paying rent in advance |
+| Utility bills | That bills (gas, electricity, water, broadband) are typically the tenant's responsibility unless stated otherwise, and how to set up accounts on arrival |
+
+### How localisation is applied per module
+
+Each module's `next_actions` output is the primary place where localisation depth is most visible. The structure is the same across locales; the content is not.
+
+**Example — GP and Healthcare module, next_actions field:**
+
+*English output:*
+> Register with a GP as soon as possible after moving in. Bring proof of your new address. If the nearest practices are not accepting patients, call NHS 111.
+
+*Chinese output (generated from zh InterpretationRule):*
+> In the UK, a GP (General Practitioner) is your local family doctor. All NHS healthcare starts here — including prescriptions, referrals to hospital, and ongoing health support. If you are in the UK on a student visa of six months or more, you are entitled to use the NHS for free, including GP services.
+>
+> After moving in, find your nearest GP surgery and go in person to register. Bring your passport, visa, and a document showing your new address (such as your tenancy agreement). Registration is free and usually takes a few minutes. You do not need to be ill to register — doing it early means you are already set up when you need care.
+>
+> If the nearest surgery is not taking new patients, call NHS 111 (free, available 24 hours) and they can help you find one that is.
+
+The data driving both outputs is identical. The interpretation, framing, and depth differ because the audiences differ.
+
+### What does not change across locales
+
+- `AreaSnapshot` data — locale-agnostic. One snapshot is shared by both locale Recommendations.
+- `walk_bucket`, `transit_bucket`, `rank_in_bucket` — structural values derived from spatial data. Identical across locales for the same area/destination pair.
+- The four-step module structure (what the data shows / what this means / what to look out for / what to do next) — consistent across locales. The structure is the same; the content within each step differs.
+
+### UI language experience
+
+The user interface detects the user's browser or device language on first visit and defaults to the appropriate locale. Manual language switching is always available. The user's preference is stored and applied on return visits. The page query filters `Recommendation` by locale — no runtime generation occurs on page load.
+
+---
+
 ## Cross-module synthesis
 
 Once all modules have run for a given area and destination pair, a synthesis layer produces the top-level Recommendation. This layer should:
