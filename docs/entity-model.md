@@ -19,6 +19,8 @@ The anchor point a user searches from. Geocoded once at creation; slug is canoni
 | `lat` | decimal | Geocoded at creation. Never updated. |
 | `lng` | decimal | Geocoded at creation. Never updated. |
 | `status` | enum | `pre_generated` \| `on_demand` \| `promoted` |
+| `search_count` | integer | Incremented on each on-demand search hit. Used to evaluate promotion eligibility. |
+| `last_searched_at` | timestamp | Nullable. Updated on each on-demand search hit. |
 | `created_at` | timestamp | |
 | `updated_at` | timestamp | |
 
@@ -145,7 +147,7 @@ The admin pipeline runs on a schedule. It selects all `pre_generated` Destinatio
 
 Entities touched: **Destination** (created or looked up; `status = on_demand`) → **Area** (spatial query) → **AreaSnapshot** (`source = on_demand`, initially `status = draft` → `live` on success) → **InterpretationRule** (active rule) → **Recommendation** (`status = live`)
 
-Triggered by a user searching an unknown destination. A Destination row is created if not found. Snapshot and Recommendation are generated synchronously (or near-synchronously). The result is cached. Demand events are recorded against the Destination for promotion evaluation.
+Triggered by a user searching an unknown destination. A Destination row is created if not found. Snapshot and Recommendation are generated synchronously (or near-synchronously). The result is cached. `search_count` is incremented and `last_searched_at` is updated on the Destination row for promotion evaluation.
 
 ---
 
@@ -153,7 +155,7 @@ Triggered by a user searching an unknown destination. A Destination row is creat
 
 Entities touched: **Destination** (status updated `on_demand` → `promoted`) → existing **AreaSnapshot** rows (`source` updated to `promoted`) → existing **Recommendation** rows (absorbed into the pre-generated library)
 
-When a Destination's demand counter crosses the configured threshold, the promotion job re-tags the Destination and its live snapshots/recommendations. From this point forward the pre-generated pipeline owns refresh cycles for this Destination. No new snapshot or recommendation rows are created by the promotion step itself.
+When a Destination's `search_count` crosses the configured threshold, the promotion job re-tags the Destination and its live snapshots/recommendations. From this point forward the pre-generated pipeline owns refresh cycles for this Destination. No new snapshot or recommendation rows are created by the promotion step itself.
 
 ---
 
